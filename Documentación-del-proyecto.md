@@ -5,6 +5,9 @@ A través de **Academy**, hemos implementado una solución que utiliza la red **
 ## 🏗️ 2. Arquitectura General del Sistema
 Para asegurar un rendimiento óptimo y una escalabilidad real, nuestro equipo diseñó una arquitectura de cuatro capas. Este diseño permite que cada componente trabaje de forma independiente pero perfectamente sincronizada, facilitando el mantenimiento y la auditoría del sistema.
 
+# 📁 Estructura del Proyecto Academy
+<img width="465" height="175" alt="image" src="https://github.com/user-attachments/assets/a7f0bc83-cd3a-49eb-a1d7-042231512e56" />
+
 
 ### Descripción detallada de nuestro flujo:
  * **Capa de Presentación (Frontend):** Desarrollada con **React.js**, implementamos una interfaz administrativa basada en módulos. El uso de un **Sidenav** dinámico permite una navegación fluida por el ecosistema de "School Manager", optimizando la experiencia del usuario final.
@@ -12,6 +15,138 @@ Para asegurar un rendimiento óptimo y una escalabilidad real, nuestro equipo di
  * **Capa de Persistencia (Híbrida):** * **MongoDB:** Actúa como nuestro almacenamiento de alta velocidad para datos operativos y catálogos escolares.
    * **Stellar SDK:** Es el puente que permite a nuestro backend comunicarse con la red de bloques para la firma y envío de transacciones.
  * **Capa Web3 (Smart Contracts):** Implementamos contratos inteligentes en **Soroban**, los cuales se ejecutan en la **Stellar Testnet** para registrar las operaciones críticas de manera inmutable.
+# Diagrama de Arquitectura
+          ┌───────────────────────┐
+          │        USUARIO        │
+          │  Dashboard Admin      │
+          └───────────┬───────────┘
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │       FRONTEND        │
+          │   Lógica Cliente      │
+          └───────────┬───────────┘
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │        BACKEND        │
+          │   Servidor Express    │
+          └───────┬─────┬─────────┘
+                  │     │
+                  │     ▼
+                  │  ┌───────────────┐
+                  │  │     .env      │
+                  │  │ Configuración │
+                  │  └───────────────┘
+                  │
+                  ▼
+          ┌───────────────────────┐
+          │         SDK           │
+          │   Stellar/Soroban     │
+          └───────────┬───────────┘
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │     RED STELLAR       │
+          │      Nodo RPC         │
+          └───────────┬───────────┘
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │   SMART CONTRACT      │
+          │        (.wasm)        │
+          └───────────┬───────────┘
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │        LEDGER         │
+          │ Estado en Blockchain  │
+          └───────────────────────┘
+
+
+
+# . Diagrama de Flujo de Funcionamiento
+
+```id="k6c9vh"
+   ┌───────────────┐
+   │    USUARIO    │
+   └──────┬────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   FRONTEND (POST)     │
+   │   /increment          │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   BACKEND (Node.js)   │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   Leer .env           │
+   │   Configuración       │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   Simular TX          │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   RED STELLAR (RPC)   │
+   │   Validación previa   │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   Firmar TX           │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   Enviar TX           │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   RED STELLAR         │
+   │   Procesa bloque      │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   SMART CONTRACT      │
+   │   increment()         │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   LEDGER              │
+   │   Estado actualizado  │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   Respuesta (Hash)    │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────────────┐
+   │   FRONTEND            │
+   │   Actualiza UI        │
+   └──────┬────────────────┘
+          │
+          ▼
+   ┌───────────────┐
+   │    USUARIO    │
+   │  ve resultado │
+   └───────────────┘
+```
+
+
 ## 🛠️ 3. Tecnologías y Estándares Utilizados
 Nuestro stack tecnológico fue seleccionado para cumplir con los más altos estándares de desarrollo profesional:
  * **Desarrollo del Cliente:** **React** para una interfaz reactiva y modular.
@@ -29,5 +164,10 @@ Como equipo, facilitamos el proceso de despliegue para asegurar que el proyecto 
    4. Despliegue de los Smart Contracts en la red de prueba y ejecución del servidor de desarrollo.
 ## 📸 5. Evidencias de Ejecución y Validación
 En esta sección presentamos los activos visuales que validan el éxito de nuestra integración técnica y el cumplimiento de los objetivos del proyecto:
+DESPLIEGUE: La de Stellar Expert
+<img width="1031" height="620" alt="image" src="https://github.com/user-attachments/assets/dd05654d-63cd-4b07-b58e-db73fea325e3" />
+
+<img width="1034" height="533" alt="image" src="https://github.com/user-attachments/assets/51567407-874a-4a50-8945-39d21dfc4c8e" />
+
 
 
